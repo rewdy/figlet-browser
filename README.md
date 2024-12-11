@@ -12,6 +12,13 @@ This provides a simple interface to reviewing and previewing the figlet fonts. A
 * Code kept tidy with [BiomeJS](https://biomejs.dev/)
 * Major S/O to my favorite simple CSS library [PicoCSS](https://picocss.com/). Provides all you need and nothing you don't.
 
+## TODO
+
+* [ ] Link to repo
+* [ ] Link to rewdy.lol
+* [ ] "About" someplace
+* [ ] Fix multiple tag filtering
+
 ---
 
 😂 Made with joy by [Rewdy](https://rewdy.lol)
