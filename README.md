@@ -22,6 +22,7 @@ This provides a simple interface to reviewing and previewing the figlet fonts. A
 * [ ] Rotate between a few favorite figlets for the header background
 * [ ] Add lolcat option for kicks
 * [ ] Add min rows filter
+* [ ] Add open graph headers
 
 ---
 
