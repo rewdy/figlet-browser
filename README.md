@@ -2,6 +2,8 @@
 
 This provides a simple interface to reviewing and previewing the figlet fonts. All the fonts are tagged so that you can find options based off of what you're trying to do. Should be kind of fun.
 
+👉 Peep it here: [figlet-browser.rewdy.lol](https://figlet-browser.rewdy.lol)
+
 ## How
 
 * Rendering via node [figlet](https://github.com/patorjk/figlet.js)
