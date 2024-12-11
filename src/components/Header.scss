@@ -1,0 +1,25 @@
+.site-header-group {
+  position: relative;
+}
+.site-header-title {
+  text-align: center;
+}
+.site-header-theme {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.site-header-background {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+  .site-header-background-text {
+    font-size: 0.75rem;
+    font-family: "Courier New", Courier, monospace;
+    white-space: pre;
+    color: var(--pico-muted-border-color);
+  }
+}

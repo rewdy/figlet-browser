@@ -1,0 +1,17 @@
+@use "@picocss/pico/scss/pico" with (
+  $semantic-root-element: "#root",
+  $enable-semantic-container: true,
+  $theme-color: "violet"
+);
+
+// Fixes for theme toggles
+button.theme-toggle {
+  color: currentColor;
+}
+
+$alignments: left center right;
+@each $alignment in $alignments {
+  .text-#{$alignment} {
+    text-align: $alignment;
+  }
+}

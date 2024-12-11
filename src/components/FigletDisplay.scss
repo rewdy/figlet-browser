@@ -1,0 +1,41 @@
+.figlet {
+  margin: 1rem 0;
+}
+.figlet-title {
+  font-size: 1.15rem;
+  font-weight: normal;
+  margin: 0 0 0.5rem 0;
+}
+.figlet-preview {
+  position: relative;
+}
+.figlet-preview-text {
+  padding: 0.5rem;
+  min-height: 4em;
+}
+.figlet-preview-copy-control {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.figlet-copy-message {
+  padding: 0.5rem;
+}
+.figlet-loading {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.figlet-tags {
+  margin-left: 1rem;
+}
+.figlet-tag {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
+  border: 1px solid var(--pico-secondary-border);
+  border-radius: 1rem;
+}

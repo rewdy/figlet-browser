@@ -1,0 +1,30 @@
+.filter-blocks {
+  display: flex;
+  margin: 0 -1rem;
+}
+.filter-block {
+  flex-basis: 100%;
+  margin: 0 1rem 1.5rem;
+}
+@media screen and (max-width: 768px) {
+  .filter-blocks {
+    flex-direction: column;
+  }
+}
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+.filter-tag {
+  width: 33%;
+}
+.filter-tag-label {
+  margin-right: 1rem;
+  white-space: nowrap;
+}
