@@ -18,6 +18,10 @@ This provides a simple interface to reviewing and previewing the figlet fonts. A
 * [ ] Link to rewdy.lol
 * [ ] "About" someplace
 * [ ] Fix multiple tag filtering
+* [ ] Add light intro to how to use figlet (node, bash at least)
+* [ ] Rotate between a few favorite figlets for the header background
+* [ ] Add lolcat option for kicks
+* [ ] Add min rows filter
 
 ---
 
