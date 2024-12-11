@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+dir="$( cd "$( dirname "$0" )" && pwd )"
+cd $dir/.. || exit
+
+if [[ -z $S3_BUCKET ]]; then
+  echo "s3 bucket env var not set"
+  exit 1
+fi
+if [[ -z $CLOUDFRONT_ID ]]; then
+  echo "cloudfront id env var not set"
+  exit 1
+fi
+
+echo "Pushing site data..."
+
+aws s3 sync dist/. "s3://$S3_BUCKET" --delete
+
+aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_ID" --paths "/*"
