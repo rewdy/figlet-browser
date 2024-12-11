@@ -1,10 +1,11 @@
 import figlet from "figlet";
 import type React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import "./FigletDisplay.scss";
 import { Copy as CopyIcon } from "react-feather";
 import { useInViewport } from "react-in-viewport";
 import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
+import { useFigletDisplay } from "../hooks/useFigletText";
 import type { FontInfo } from "../hooks/useFontList";
 
 figlet.defaults({ fontPath: "node_modules/figlet/importable-fonts" });
@@ -14,49 +15,13 @@ export type FigletDisplayProps = {
   font: FontInfo;
 };
 
-const RENDER_CACHE: Record<string, string> = {};
-
 export const FigletDisplay: React.FC<FigletDisplayProps> = ({ text, font }) => {
-  const [display, setDisplay] = useState<string>("");
   const figRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(figRef);
   const { copyToClipboard, message, showMessage } = useCopyToClipboard();
+  const display = useFigletDisplay(text, font.name, inViewport);
 
   const { name: fontName } = font;
-  useEffect(() => {
-    const renderText = async () => {
-      const cacheKey = `${fontName}:${text}`;
-      if (cacheKey in RENDER_CACHE) {
-        setDisplay(RENDER_CACHE[cacheKey]);
-      } else {
-        const importedFont = await import(`../assets/figlets/${fontName}.js`);
-        await figlet.parseFont(fontName, importedFont.default);
-        await figlet.text(
-          text,
-          {
-            font: fontName,
-            horizontalLayout: "default",
-            verticalLayout: "default",
-            whitespaceBreak: true,
-          },
-          (error, result) => {
-            if (error) {
-              console.error(error);
-              RENDER_CACHE[cacheKey] =
-                "An error occurred while rendering the text.";
-              setDisplay("An error occurred while rendering the text.");
-            } else if (result) {
-              RENDER_CACHE[cacheKey] = result;
-              setDisplay(result);
-            }
-          },
-        );
-      }
-    };
-    if (inViewport) {
-      renderText();
-    }
-  }, [text, fontName, inViewport]);
 
   return (
     <div className="figlet" ref={figRef}>

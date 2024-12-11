@@ -1,16 +1,27 @@
-export const useBackgroundText = () => `
-             .                      ..                 s    
-   oec :    @88>              x .d88"                 :8    
-  @88888    %8P                5888R                 .88    
-  8"*88%     .         uL      '888R        .u      :888ooo 
-  8b.      .@88u   .ue888Nc..   888R     ud8888.  -*8888888 
- u888888> ''888E\` d88E\`"888E\`   888R   :888'8888.   8888    
-  8888R     888E  888E  888E    888R   d888 '88%"   8888    
-  8888P     888E  888E  888E    888R   8888.+"      8888    
-  *888>     888E  888E  888E    888R   8888L       .8888Lu= 
-  4888      888&  888& .888E   .888B . '8888c. .+  ^%888*   
-  '888      R888" *888" 888&   ^*888%   "88888%      'Y"    
-   88R       ""    \`"   "888E    "%       "YP'              
-   88>            .dWi   \`88E                               
-   48             4888~  J8%                                
-   '8              ^"===*"\`                                 `;
+import type { Fonts } from "figlet";
+import useSessionStorageState from "use-session-storage-state";
+import { HEADER_BG_FONT_STORAGE_KEY, SITE_HEADER_BG_TEXT } from "../constants";
+import { useFigletDisplay } from "./useFigletText";
+
+const FONT_OPTIONS: Fonts[] = [
+  "Fraktur",
+  "Broadway",
+  "Crazy",
+  "Caligraphy",
+  "Banner3-D",
+];
+const getRandomFont = () => {
+  const index = Math.floor(Math.random() * FONT_OPTIONS.length);
+  return FONT_OPTIONS[index];
+};
+
+/**
+ * Hook to pick a font and render the text for the site header background
+ */
+export const useBackgroundText = () => {
+  const [font] = useSessionStorageState(HEADER_BG_FONT_STORAGE_KEY, {
+    defaultValue: getRandomFont(),
+  });
+  const display = useFigletDisplay(SITE_HEADER_BG_TEXT, font, true);
+  return display;
+};

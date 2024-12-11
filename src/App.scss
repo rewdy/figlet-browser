@@ -1,12 +1,18 @@
 .filter-blocks {
   display: flex;
+  flex-wrap: wrap;
   margin: 0 -1rem;
 }
 .filter-block {
-  flex-basis: 100%;
+  flex: 1;
   margin: 0 1rem 1.5rem;
 }
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+  .filter-block-search {
+    flex-basis: 100%;
+  }
+}
+@media screen and (max-width: 1024px) {
   .filter-blocks {
     flex-direction: column;
   }

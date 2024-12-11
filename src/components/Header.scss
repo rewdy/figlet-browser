@@ -1,5 +1,6 @@
 .site-header-group {
   position: relative;
+  overflow: visible;
 }
 .site-header-title {
   text-align: center;
@@ -20,6 +21,8 @@
     font-size: 0.75rem;
     font-family: "Courier New", Courier, monospace;
     white-space: pre;
-    color: var(--pico-muted-border-color);
+    color: var(--pico-color-secondary);
+    opacity: 0.2;
+    transition: opacity 0.3s ease-in-out;
   }
 }

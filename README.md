@@ -14,14 +14,14 @@ This provides a simple interface to reviewing and previewing the figlet fonts. A
 
 ## TODO
 
-* [ ] Link to repo
-* [ ] Link to rewdy.lol
-* [ ] "About" someplace
-* [ ] Fix multiple tag filtering
-* [ ] Add light intro to how to use figlet (node, bash at least)
-* [ ] Rotate between a few favorite figlets for the header background
+* [X] Link to repo
+* [X] Link to rewdy.lol
+* [X] "About" someplace
+* [X] Fix multiple tag filtering
+* [X] Add light intro to how to use figlet (node, bash at least)
+* [X] Rotate between a few favorite figlets for the header background
 * [ ] Add lolcat option for kicks
-* [ ] Add min rows filter
+* [X] Add min rows filter
 * [ ] Add open graph headers
 
 ---

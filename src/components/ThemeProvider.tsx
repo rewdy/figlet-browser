@@ -2,10 +2,8 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 import usePrefersColorScheme from "use-prefers-color-scheme";
+import { DEFAULT_THEME, THEME_STORAGE_KEY } from "../constants";
 import { type Theme, ThemeContext } from "../contexts/ThemeContext";
-
-const DEFAULT_THEME = "light";
-const THEME_LOCAL_STORAGE_KEY = "figlet-browser-theme";
 
 /**
  * ThemeProvider saves and sets the preferred theme for the site
@@ -20,7 +18,7 @@ export const ThemeProvider: React.FC<{ children?: React.ReactNode }> = ({
       ? systemPreferredTheme
       : DEFAULT_THEME;
   const [selectedTheme, setSelectedTheme] = useLocalStorageState<Theme>(
-    THEME_LOCAL_STORAGE_KEY,
+    THEME_STORAGE_KEY,
     undefined,
   );
   const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);

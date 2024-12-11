@@ -12,7 +12,7 @@ type FontInfo = {
 async function processFiles() {
   const directoryPath = path.join(
     path.dirname(new URL(import.meta.url).pathname),
-    "../src/assets/figlets"
+    "../src/assets/figlets",
   );
   let fontResults: FontInfo[] = [];
   const files = await fs.promises.readdir(directoryPath);
@@ -39,7 +39,7 @@ async function processFiles() {
             displayText = result;
             resolve();
           }
-        }
+        },
       );
     });
     const height = displayText.split("\n").length;
@@ -70,7 +70,7 @@ async function processFiles() {
       } else {
         console.log("Font list has been saved.");
       }
-    }
+    },
   );
 
   const remaining = Object.keys(chapGPTTags);
