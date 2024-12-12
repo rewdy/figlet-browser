@@ -2,13 +2,18 @@ import "./App.scss";
 import useLocalStorageState from "use-local-storage-state";
 import { FigletDisplay } from "./components/FigletDisplay";
 import { Layout } from "./components/Layout";
-import { DEMO_TEXT_STORAGE_KEY } from "./constants";
+import { DEMO_TEXT_STORAGE_KEY, LOLCAT_STORAGE_KEY } from "./constants";
 import { type FilterState, useFontList } from "./hooks/useFontList";
 
 function App() {
   const [text, setText] = useLocalStorageState<string>(DEMO_TEXT_STORAGE_KEY, {
     defaultValue: "Hello, world",
   });
+  const [lolcatEnabled, setLolcatEnabled] = useLocalStorageState<boolean>(
+    LOLCAT_STORAGE_KEY,
+    { defaultValue: false },
+  );
+
   const {
     fontList,
     tagList,
@@ -52,7 +57,7 @@ function App() {
       </section>
       <hr />
       <section>
-        <header className="filter-header">
+        <header className="section-header">
           <div>
             <h2>Filter</h2>
           </div>
@@ -82,6 +87,7 @@ function App() {
                     value={tag}
                     checked={filters.tags.includes(tag)}
                     onClick={() => toggleTag(tag)}
+                    // This is unnecessary, but react thinks this is uncontrolled if we don't have a handler here
                     onChange={() => {}}
                   />
                   {tag}
@@ -181,12 +187,34 @@ function App() {
       </section>
       <hr />
       <section>
-        <header>
-          <h2>Figlet Fonts</h2>
+        <header className="section-header">
+          <div>
+            <h2>Figlet Fonts</h2>
+          </div>
+          <div>
+            <label>
+              <input
+                name="lolcat"
+                type="checkbox"
+                role="switch"
+                checked={lolcatEnabled}
+                aria-checked={lolcatEnabled}
+                onClick={() => setLolcatEnabled(!lolcatEnabled)}
+                // This is unnecessary, but react thinks this is uncontrolled if we don't have a handler here
+                onChange={() => {}}
+              />{" "}
+              {lolcatEnabled ? "🌈" : "🐈"} lolcat
+            </label>
+          </div>
         </header>
         {text.length > 0 &&
           fontList.map((font) => (
-            <FigletDisplay key={font.name} text={text} font={font} />
+            <FigletDisplay
+              key={font.name}
+              text={text}
+              font={font}
+              lolcat={lolcatEnabled}
+            />
           ))}
         {text.length === 0 && (
           <p className="text-center">

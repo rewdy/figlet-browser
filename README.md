@@ -20,7 +20,7 @@ This provides a simple interface to reviewing and previewing the figlet fonts. A
 * [X] Fix multiple tag filtering
 * [X] Add light intro to how to use figlet (node, bash at least)
 * [X] Rotate between a few favorite figlets for the header background
-* [ ] Add lolcat option for kicks
+* [X] Add lolcat option for kicks
 * [X] Add min rows filter
 * [ ] Add open graph headers
 

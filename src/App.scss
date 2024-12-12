@@ -1,3 +1,9 @@
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .filter-blocks {
   display: flex;
   flex-wrap: wrap;
@@ -16,11 +22,6 @@
   .filter-blocks {
     flex-direction: column;
   }
-}
-.filter-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .filter-tags {

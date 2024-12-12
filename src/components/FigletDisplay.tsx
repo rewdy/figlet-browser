@@ -1,25 +1,37 @@
 import figlet from "figlet";
 import type React from "react";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import "./FigletDisplay.scss";
 import { Copy as CopyIcon } from "react-feather";
 import { useInViewport } from "react-in-viewport";
 import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
 import { useFigletDisplay } from "../hooks/useFigletText";
 import type { FontInfo } from "../hooks/useFontList";
+import { lolcatRender } from "../helpers/lolcat";
 
 figlet.defaults({ fontPath: "node_modules/figlet/importable-fonts" });
 
 export type FigletDisplayProps = {
   text: string;
   font: FontInfo;
+  lolcat?: boolean;
 };
 
-export const FigletDisplay: React.FC<FigletDisplayProps> = ({ text, font }) => {
+export const FigletDisplay: React.FC<FigletDisplayProps> = ({
+  text,
+  font,
+  lolcat = false,
+}) => {
   const figRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(figRef);
   const { copyToClipboard, message, showMessage } = useCopyToClipboard();
   const display = useFigletDisplay(text, font.name, inViewport);
+  const colorized = useMemo(() => {
+    if (!lolcat) {
+      return display;
+    }
+    return lolcatRender(display, { seed: 1, frequency: 0.5, spread: 10 });
+  }, [display, lolcat]);
 
   const { name: fontName } = font;
 
@@ -62,7 +74,7 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({ text, font }) => {
               <span className="figlet-copy-message">{message}</span>
             )}
           </div>
-          <pre className="figlet-preview-text">{display}</pre>
+          <pre className="figlet-preview-text">{colorized}</pre>
         </div>
       ) : (
         <p className="figlet-loading">
