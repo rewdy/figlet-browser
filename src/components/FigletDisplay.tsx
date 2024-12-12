@@ -4,10 +4,11 @@ import { useMemo, useRef } from "react";
 import "./FigletDisplay.scss";
 import { Copy as CopyIcon } from "react-feather";
 import { useInViewport } from "react-in-viewport";
+import { lolcatRender } from "../helpers/lolcat";
+import { useAsImage } from "../hooks/useAsImage";
 import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
 import { useFigletDisplay } from "../hooks/useFigletText";
 import type { FontInfo } from "../hooks/useFontList";
-import { lolcatRender } from "../helpers/lolcat";
 
 figlet.defaults({ fontPath: "node_modules/figlet/importable-fonts" });
 
@@ -25,6 +26,7 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
   const figRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(figRef);
   const { copyToClipboard, message, showMessage } = useCopyToClipboard();
+  const { copyAsImageToClipboard } = useAsImage();
   const display = useFigletDisplay(text, font.name, inViewport);
   const colorized = useMemo(() => {
     if (!lolcat) {
@@ -34,6 +36,7 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
   }, [display, lolcat]);
 
   const { name: fontName } = font;
+  const displayId = `figlet-${fontName}`;
 
   return (
     <div className="figlet" ref={figRef}>
@@ -60,21 +63,47 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
       {display ? (
         <div className="figlet-preview">
           <div className="figlet-preview-copy-control">
-            <button
-              type="button"
-              className="figlet-copy secondary"
-              onClick={() => {
-                copyToClipboard(display);
-              }}
-              title="Copy to clipboard"
-            >
-              <CopyIcon />
-            </button>
+            <details className="dropdown figlet-copy-dropdown">
+              {/* biome-ignore lint/a11y/useSemanticElements: <explanation> */}
+              <summary role="button" className="secondary small">
+                <CopyIcon />
+              </summary>
+              <ul dir="rtl">
+                <li>
+                  {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      copyToClipboard(display);
+                    }}
+                  >
+                    Copy text
+                  </a>
+                </li>
+                <li>
+                  {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      copyAsImageToClipboard(displayId);
+                    }}
+                  >
+                    Copy as image
+                  </a>
+                </li>
+              </ul>
+            </details>
             {showMessage && (
               <span className="figlet-copy-message">{message}</span>
             )}
           </div>
-          <pre className="figlet-preview-text">{colorized}</pre>
+          <div className="figlet-preview-text-wrapper">
+            <pre id={displayId} className="figlet-preview-text">
+              {colorized}
+            </pre>
+          </div>
         </div>
       ) : (
         <p className="figlet-loading">

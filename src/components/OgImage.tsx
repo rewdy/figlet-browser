@@ -1,7 +1,7 @@
 import "./OgImage.scss";
+import html2canvas from "html2canvas";
 import type React from "react";
 import { useFigletDisplay } from "../hooks/useFigletText";
-import html2canvas from "html2canvas";
 
 const IMAGE_ID = "site-og-image";
 
