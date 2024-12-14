@@ -12,15 +12,29 @@ export const useCopyToClipboard = (messageDuration = 2000) => {
     }, messageDuration);
   };
 
-  const copyToClipboard = async (text: string) => {
+  const copyToClipboard = async (data: string | ClipboardItem) => {
     try {
-      await navigator.clipboard.writeText(text);
+      const clipboardItem =
+        typeof data === "string"
+          ? [
+              new ClipboardItem({
+                "text/plain": new Blob([data], { type: "text/plain" }),
+              }),
+            ]
+          : [data];
+      await navigator.clipboard.write(clipboardItem);
       displayMessage("Copied to clipboard!");
     } catch (error) {
+      if ((error as Error).name === "NotAllowedError") {
+        displayMessage(
+          "Clipboard access denied; cannot copy. Try downloading instead."
+        );
+        return;
+      }
       console.error("Failed to copy text to clipboard:", error);
       displayMessage("Failed to copy to clipboard.");
     }
   };
 
-  return { copyToClipboard, message, showMessage };
+  return { copyToClipboard, displayMessage, message, hasMessage: showMessage };
 };

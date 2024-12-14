@@ -25,8 +25,9 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
 }) => {
   const figRef = useRef<HTMLDivElement>(null);
   const { inViewport } = useInViewport(figRef);
-  const { copyToClipboard, message, showMessage } = useCopyToClipboard();
-  const { copyAsImageToClipboard } = useAsImage();
+  const { copyToClipboard, message, hasMessage, displayMessage } =
+    useCopyToClipboard();
+  const { getImageAsPngBlob, downloadAsImage } = useAsImage();
   const display = useFigletDisplay(text, font.name, inViewport);
   const colorized = useMemo(() => {
     if (!lolcat) {
@@ -37,6 +38,25 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
 
   const { name: fontName } = font;
   const displayId = `figlet-${fontName}`;
+
+  const addToClipboardPng = async () => {
+    const png = await getImageAsPngBlob(displayId);
+    if (png) {
+      const clipboardItem = new ClipboardItem({ "image/png": png });
+      copyToClipboard(clipboardItem);
+    } else {
+      displayMessage("Could not create image. Something is amiss.");
+    }
+  };
+  const slugify = (text: string) => {
+    return text.replace(/\W+/g, " ").trim().replace(" ", "_");
+  };
+  const downloadText = () => {
+    const fontNameSlug = slugify(fontName);
+    const textSlug = slugify(text).toLowerCase().substring(0, 80);
+    const fileName = `${fontNameSlug}-${textSlug}.png`;
+    downloadAsImage(displayId, fileName);
+  };
 
   return (
     <div className="figlet" ref={figRef}>
@@ -87,15 +107,27 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      copyAsImageToClipboard(displayId);
+                      addToClipboardPng();
                     }}
                   >
                     Copy as image
                   </a>
                 </li>
+                <li>
+                  {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      downloadText();
+                    }}
+                  >
+                    Download as image
+                  </a>
+                </li>
               </ul>
             </details>
-            {showMessage && (
+            {hasMessage && (
               <span className="figlet-copy-message">{message}</span>
             )}
           </div>
