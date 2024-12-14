@@ -1,0 +1,13 @@
+.elevator-link {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  margin: 0;
+  border-radius: 2rem;
+  opacity: 1;
+  transition: opacity 1s;
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}

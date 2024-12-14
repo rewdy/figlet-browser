@@ -9,6 +9,7 @@ import { useAsImage } from "../hooks/useAsImage";
 import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
 import { useFigletDisplay } from "../hooks/useFigletText";
 import type { FontInfo } from "../hooks/useFontList";
+import { createSlug } from "../helpers/stringHelpers";
 
 figlet.defaults({ fontPath: "node_modules/figlet/importable-fonts" });
 
@@ -36,9 +37,13 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
     return lolcatRender(display, { seed: 1, frequency: 0.5, spread: 10 });
   }, [display, lolcat]);
 
+  // Render vars
   const { name: fontName } = font;
   const displayId = `figlet-${fontName}`;
 
+  /**
+   * Add png image to clipboard
+   */
   const addToClipboardPng = async () => {
     const png = await getImageAsPngBlob(displayId);
     if (png) {
@@ -48,12 +53,13 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
       displayMessage("Could not create image. Something is amiss.");
     }
   };
-  const slugify = (text: string) => {
-    return text.replace(/\W+/g, " ").trim().replace(" ", "_");
-  };
+
+  /**
+   * Download png image of the figlet text
+   */
   const downloadText = () => {
-    const fontNameSlug = slugify(fontName);
-    const textSlug = slugify(text).toLowerCase().substring(0, 80);
+    const fontNameSlug = createSlug(fontName);
+    const textSlug = createSlug(text).toLowerCase().substring(0, 80);
     const fileName = `${fontNameSlug}-${textSlug}.png`;
     downloadAsImage(displayId, fileName);
   };

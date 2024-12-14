@@ -4,6 +4,10 @@
   $theme-color: "violet"
 );
 
+:root {
+  --text-small: 0.85rem;
+}
+
 // Fixes for theme toggles
 button.theme-toggle {
   color: currentColor;
@@ -16,14 +20,35 @@ $alignments: left center right;
   }
 }
 
+.text-strikethrough {
+  text-decoration: line-through;
+}
+
+.text-secondary {
+  color: var(--pico-secondary);
+}
+
+.text-small {
+  font-size: var(--text-small);
+}
+
 button,
 [role="button"] {
   &.small {
-    font-size: 0.8rem;
+    font-size: var(--text-small);
     padding: 0.5em 0.75em;
   }
   svg {
     height: 1rem;
     width: auto;
   }
+}
+
+.svg-icon {
+  height: 1rem;
+  width: auto;
+}
+
+button.borderless {
+  border-color: transparent;
 }

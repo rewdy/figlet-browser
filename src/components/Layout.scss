@@ -1,0 +1,10 @@
+.footer-links {
+  display: flex;
+  justify-content: center;
+  a {
+    padding: 0 1rem;
+  }
+  a + a {
+    border-left: 1px solid var(--pico-muted-border-color);
+  }
+}

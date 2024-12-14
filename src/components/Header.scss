@@ -26,3 +26,14 @@
     transition: opacity 0.3s ease-in-out;
   }
 }
+
+.about-button .svg-icon {
+  // the info icon falls weird against the text. bump it up a skosh.
+  position: relative;
+  transform: translateY(-0.15rem);
+}
+@media only screen and (max-width: 1024px) {
+  .about-button .text {
+    display: none;
+  }
+}
