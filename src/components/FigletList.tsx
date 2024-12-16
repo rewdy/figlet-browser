@@ -1,13 +1,13 @@
 import type React from "react";
 import useLocalStorageState from "use-local-storage-state";
+import useSessionStorageState from "use-session-storage-state";
 import {
   DEMO_TEXT_STORAGE_KEY,
   LOLCAT_STORAGE_KEY,
   SHOW_ALL_STORAGE_KEY,
 } from "../constants";
-import { useFontList, type FilterState } from "../hooks/useFontList";
+import { type FilterState, useFontList } from "../hooks/useFontList";
 import { FigletDisplay } from "./FigletDisplay";
-import useSessionStorageState from "use-session-storage-state";
 import "./FigletList.scss";
 import { ElevatorLink } from "./ElevatorLink";
 
@@ -16,14 +16,14 @@ const TODAY_LIMIT = 25;
 export const FigletList: React.FC = () => {
   const [showAll, setShowAll] = useSessionStorageState<boolean>(
     SHOW_ALL_STORAGE_KEY,
-    { defaultValue: false }
+    { defaultValue: false },
   );
   const [text, setText] = useLocalStorageState<string>(DEMO_TEXT_STORAGE_KEY, {
     defaultValue: "Hello, world",
   });
   const [lolcatEnabled, setLolcatEnabled] = useLocalStorageState<boolean>(
     LOLCAT_STORAGE_KEY,
-    { defaultValue: false }
+    { defaultValue: false },
   );
 
   const {

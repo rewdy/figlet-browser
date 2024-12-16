@@ -25,7 +25,7 @@ export const useAsImage = () => {
       const element = document.getElementById(elementId);
       if (!element) {
         reject(
-          new Error(`Could not find element in page with id: ${elementId}`)
+          new Error(`Could not find element in page with id: ${elementId}`),
         );
         return;
       }

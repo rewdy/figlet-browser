@@ -27,7 +27,7 @@ export const useCopyToClipboard = (messageDuration = 2000) => {
     } catch (error) {
       if ((error as Error).name === "NotAllowedError") {
         displayMessage(
-          "Clipboard access denied; cannot copy. Try downloading instead."
+          "Clipboard access denied; cannot copy. Try downloading instead.",
         );
         return;
       }

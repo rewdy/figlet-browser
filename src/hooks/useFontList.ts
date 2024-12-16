@@ -2,8 +2,8 @@ import type { Fonts } from "figlet";
 import { useMemo } from "react";
 import useSessionStorageState from "use-session-storage-state";
 import { FILTERS_STORAGE_KEY } from "../constants";
-import masterFontList from "./fontList.json";
 import { getSeededRandom, todayNoTime } from "../helpers/seededRandom";
+import masterFontList from "./fontList.json";
 
 // Types
 /**
@@ -36,7 +36,7 @@ const PREPARED_FONTS: FontInfo[] = masterFontList
 export const useFontList = () => {
   const maxRows = Math.max(...PREPARED_FONTS.map((font) => font.height));
   const tagList = Array.from(
-    new Set(PREPARED_FONTS.flatMap((font) => font.tags))
+    new Set(PREPARED_FONTS.flatMap((font) => font.tags)),
   ).sort();
 
   const [filters, setFilters] = useSessionStorageState<FilterState>(
@@ -48,7 +48,7 @@ export const useFontList = () => {
         maxRows: maxRows,
         minRows: 1,
       },
-    }
+    },
   );
 
   const toggleTag = (tag: string) => {
@@ -84,17 +84,18 @@ export const useFontList = () => {
     // We filter by textFilter OR the others.
     const filteredByText = filters.textFilter
       ? PREPARED_FONTS.filter((font) =>
-          font.name.toLowerCase().includes(filters.textFilter.toLowerCase())
+          font.name.toLowerCase().includes(filters.textFilter.toLowerCase()),
         )
       : PREPARED_FONTS;
     const filteredByTags =
       filters.tags.length > 0
         ? filteredByText.filter((font) =>
-            filters.tags.every((tag) => font.tags.includes(tag))
+            filters.tags.every((tag) => font.tags.includes(tag)),
           )
         : filteredByText;
     const filteredByRows = filteredByTags.filter(
-      (font) => font.height <= filters.maxRows && font.height >= filters.minRows
+      (font) =>
+        font.height <= filters.maxRows && font.height >= filters.minRows,
     );
     return filteredByRows;
   }, [filters]);

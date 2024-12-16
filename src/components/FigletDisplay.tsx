@@ -2,14 +2,14 @@ import figlet from "figlet";
 import type React from "react";
 import { useRef } from "react";
 import "./FigletDisplay.scss";
+import { Lolcat } from "@rewdy/react-lolcat";
 import { Copy as CopyIcon } from "react-feather";
 import { useInViewport } from "react-in-viewport";
+import { createSlug } from "../helpers/stringHelpers";
 import { useAsImage } from "../hooks/useAsImage";
 import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
 import { useFigletDisplay } from "../hooks/useFigletText";
 import type { FontInfo } from "../hooks/useFontList";
-import { createSlug } from "../helpers/stringHelpers";
-import { Lolcat } from "@rewdy/react-lolcat";
 
 figlet.defaults({ fontPath: "node_modules/figlet/importable-fonts" });
 

@@ -1,6 +1,6 @@
 import "./App.scss";
-import { Layout } from "./components/Layout";
 import { FigletList } from "./components/FigletList";
+import { Layout } from "./components/Layout";
 
 function App() {
   return (

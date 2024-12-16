@@ -1,6 +1,6 @@
 import type React from "react";
-import useScrollOffset from "../hooks/useScrollOffset";
 import { ArrowUpCircle } from "react-feather";
+import useScrollOffset from "../hooks/useScrollOffset";
 import "./ElevatorLink.scss";
 
 export const ElevatorLink: React.FC = () => {
