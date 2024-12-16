@@ -1,5 +1,3 @@
-import html2canvas from "html2canvas";
-
 const PNG_DOC_STRING = "image/png";
 
 export const useAsImage = () => {
@@ -7,6 +5,7 @@ export const useAsImage = () => {
     const element = document.getElementById(elementId);
     if (!element) return;
 
+    const html2canvas = (await import("html2canvas")).default;
     const canvas = await html2canvas(element);
     const data = canvas.toDataURL(PNG_DOC_STRING);
     const link = document.createElement("a");
@@ -20,6 +19,8 @@ export const useAsImage = () => {
   };
 
   const getImageAsPngBlob = async (elementId: string): Promise<Blob> => {
+    const html2canvas = (await import("html2canvas")).default;
+
     return new Promise((resolve, reject) => {
       const element = document.getElementById(elementId);
       if (!element) {

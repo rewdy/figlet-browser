@@ -1,15 +1,15 @@
 import figlet from "figlet";
 import type React from "react";
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import "./FigletDisplay.scss";
 import { Copy as CopyIcon } from "react-feather";
 import { useInViewport } from "react-in-viewport";
-import { lolcatRender } from "../helpers/lolcat";
 import { useAsImage } from "../hooks/useAsImage";
 import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
 import { useFigletDisplay } from "../hooks/useFigletText";
 import type { FontInfo } from "../hooks/useFontList";
 import { createSlug } from "../helpers/stringHelpers";
+import { Lolcat } from "@rewdy/react-lolcat";
 
 figlet.defaults({ fontPath: "node_modules/figlet/importable-fonts" });
 
@@ -30,12 +30,6 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
     useCopyToClipboard();
   const { getImageAsPngBlob, downloadAsImage } = useAsImage();
   const display = useFigletDisplay(text, font.name, inViewport);
-  const colorized = useMemo(() => {
-    if (!lolcat) {
-      return display;
-    }
-    return lolcatRender(display, { seed: 1, frequency: 0.5, spread: 10 });
-  }, [display, lolcat]);
 
   // Render vars
   const { name: fontName } = font;
@@ -139,7 +133,7 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
           </div>
           <div className="figlet-preview-text-wrapper">
             <pre id={displayId} className="figlet-preview-text">
-              {colorized}
+              {lolcat ? <Lolcat text={display} /> : display}
             </pre>
           </div>
         </div>
