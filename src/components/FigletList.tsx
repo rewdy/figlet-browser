@@ -16,14 +16,14 @@ const TODAY_LIMIT = 25;
 export const FigletList: React.FC = () => {
   const [showAll, setShowAll] = useSessionStorageState<boolean>(
     SHOW_ALL_STORAGE_KEY,
-    { defaultValue: false },
+    { defaultValue: false }
   );
   const [text, setText] = useLocalStorageState<string>(DEMO_TEXT_STORAGE_KEY, {
     defaultValue: "Hello, world",
   });
   const [lolcatEnabled, setLolcatEnabled] = useLocalStorageState<boolean>(
     LOLCAT_STORAGE_KEY,
-    { defaultValue: false },
+    { defaultValue: false }
   );
 
   const {
@@ -93,6 +93,34 @@ export const FigletList: React.FC = () => {
           </div>
         </header>
         <div className="filter-blocks">
+          <div className="filter-block filter-show-all">
+            <fieldset>
+              <input
+                type="radio"
+                id="show-todays-today"
+                name="show-todays"
+                checked={!isFiltered && !showAll}
+                onClick={() => {
+                  clearFilters();
+                  setShowAll(false);
+                }}
+              />
+              <label htmlFor="show-todays-today">
+                Show today's 25 random fonts
+              </label>
+              <input
+                type="radio"
+                id="show-todays-all"
+                name="show-todays"
+                checked={!isFiltered && showAll}
+                onClick={() => {
+                  clearFilters();
+                  setShowAll(true);
+                }}
+              />
+              <label htmlFor="show-todays-all">Show all fonts</label>
+            </fieldset>
+          </div>
           <div className="filter-block filter-tags">
             {tagList.map((tag) => (
               <div key={tag} className="filter-tag">
@@ -208,20 +236,6 @@ export const FigletList: React.FC = () => {
             <h2>Figlet Fonts</h2>
           </div>
           <div className="figlet-list-toggles">
-            <label className={isFiltered ? "text-strikethrough" : ""}>
-              <input
-                name="showRandom"
-                type="checkbox"
-                role="switch"
-                checked={!showAll}
-                aria-checked={!showAll}
-                onClick={() => setShowAll(!showAll)}
-                // This is unnecessary, but react thinks this is uncontrolled if we don't have a handler here
-                onChange={() => {}}
-                disabled={isFiltered}
-              />{" "}
-              Show 25 random fonts
-            </label>
             <label>
               <input
                 name="lolcat"

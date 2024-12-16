@@ -13,6 +13,9 @@
   flex: 1;
   margin: 0 1rem 1.5rem;
 }
+.filter-show-all {
+  flex-basis: 100%;
+}
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
   .filter-block-search {
     flex-basis: 100%;
