@@ -10,6 +10,7 @@ import { useAsImage } from "../hooks/useAsImage";
 import { useCopyToClipboard } from "../hooks/useCopyToClipboard";
 import { useFigletDisplay } from "../hooks/useFigletText";
 import type { FontInfo } from "../hooks/useFontList";
+import { FigletCLIDisplay } from "./FigletCLICommandDisplay";
 
 figlet.defaults({ fontPath: "node_modules/figlet/importable-fonts" });
 
@@ -68,7 +69,12 @@ export const FigletDisplay: React.FC<FigletDisplayProps> = ({
         }}
       >
         <div>
-          <h2 className="figlet-title">{fontName}</h2>
+          <header className="figlet-header">
+            <h2 className="figlet-title">{fontName}</h2>
+            {font.cliName && (
+              <FigletCLIDisplay cliName={font.cliName} text={text} />
+            )}
+          </header>
         </div>
         <div>
           <p className="figlet-tags">

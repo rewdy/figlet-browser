@@ -13,6 +13,7 @@ export type FontInfo = {
   name: FontName;
   height: number;
   tags: string[];
+  cliName?: string;
 };
 
 /**
@@ -105,6 +106,10 @@ export const useFontList = () => {
     return getSeededRandom(todayDate.valueOf(), PREPARED_FONTS);
   }, []);
 
+  const cliFontList = useMemo(() => {
+    return PREPARED_FONTS.filter((font) => font.cliName);
+  }, []);
+
   return {
     fontList: fontList as FontInfo[],
     tagList,
@@ -115,5 +120,6 @@ export const useFontList = () => {
     clearFilters,
     isFiltered,
     todaysRandom,
+    cliFontList,
   };
 };

@@ -10,3 +10,4 @@ export const HEADER_BG_FONT_STORAGE_KEY = `${namespace}header-font`;
 export const FILTERS_STORAGE_KEY = `${namespace}filters`;
 export const LOLCAT_STORAGE_KEY = `${namespace}lolcat`;
 export const SHOW_ALL_STORAGE_KEY = `${namespace}show-all`;
+export const SHOW_STORAGE_KEY = `${namespace}show-option`;

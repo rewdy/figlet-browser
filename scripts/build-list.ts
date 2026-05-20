@@ -1,12 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
-import figlet, { type Fonts } from "figlet";
+import figlet, { type FontName } from "figlet";
+import cliNames from "./cli-names.json";
 import chapGPTTags from "./tags.json";
 
 type FontInfo = {
-  name: Fonts;
+  name: FontName;
   height: number;
   tags: string[];
+  cliName?: string;
 };
 
 async function processFiles() {
@@ -56,6 +58,9 @@ async function processFiles() {
       height,
       tags,
     };
+    if (fontName in cliNames) {
+      fontItem.cliName = cliNames[fontName as keyof typeof cliNames];
+    }
     fontResults.push(fontItem);
   }
   // Sort
@@ -75,6 +80,13 @@ async function processFiles() {
 
   const remaining = Object.keys(chapGPTTags);
   console.log("Remaining tags:", remaining, remaining.length);
+
+  const withCli = fontResults.filter((f) => f.cliName).length;
+  console.log(
+    `cliName coverage: ${withCli}/${fontResults.length} fonts (${
+      fontResults.length - withCli
+    } not in figlet CLI)`,
+  );
 }
 
 processFiles();

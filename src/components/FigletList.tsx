@@ -4,7 +4,7 @@ import useSessionStorageState from "use-session-storage-state";
 import {
   DEMO_TEXT_STORAGE_KEY,
   LOLCAT_STORAGE_KEY,
-  SHOW_ALL_STORAGE_KEY,
+  SHOW_STORAGE_KEY,
 } from "../constants";
 import { type FilterState, useFontList } from "../hooks/useFontList";
 import { FigletDisplay } from "./FigletDisplay";
@@ -13,10 +13,12 @@ import { ElevatorLink } from "./ElevatorLink";
 
 const TODAY_LIMIT = 25;
 
+type FontToShowOption = "all" | "todays" | "cli";
+
 export const FigletList: React.FC = () => {
-  const [showAll, setShowAll] = useSessionStorageState<boolean>(
-    SHOW_ALL_STORAGE_KEY,
-    { defaultValue: false },
+  const [showOption, setShowOption] = useSessionStorageState<FontToShowOption>(
+    SHOW_STORAGE_KEY,
+    { defaultValue: "todays" },
   );
   const [text, setText] = useLocalStorageState<string>(DEMO_TEXT_STORAGE_KEY, {
     defaultValue: "Hello, world",
@@ -28,6 +30,7 @@ export const FigletList: React.FC = () => {
 
   const {
     fontList,
+    cliFontList,
     tagList,
     maxRows,
     filters,
@@ -52,8 +55,17 @@ export const FigletList: React.FC = () => {
     maxRows: maxRows,
   };
 
+  const showAll = showOption === "all";
   const fontsToShow =
-    isFiltered || showAll ? fontList : todaysRandom.slice(0, TODAY_LIMIT);
+    isFiltered || showAll
+      ? fontList
+      : showOption === "cli"
+        ? cliFontList
+        : todaysRandom.slice(0, TODAY_LIMIT);
+
+  const allChecked = isFiltered || showOption === "all";
+  const todayChecked = !isFiltered && showOption === "todays";
+  const cliChecked = !isFiltered && showOption === "cli";
 
   return (
     <>
@@ -98,11 +110,11 @@ export const FigletList: React.FC = () => {
               <input
                 type="radio"
                 id="show-todays-today"
-                name="show-todays"
-                checked={!isFiltered && !showAll}
+                name="show-option"
+                checked={todayChecked}
                 onClick={() => {
                   clearFilters();
-                  setShowAll(false);
+                  setShowOption("todays");
                 }}
               />
               <label htmlFor="show-todays-today">
@@ -111,14 +123,25 @@ export const FigletList: React.FC = () => {
               <input
                 type="radio"
                 id="show-todays-all"
-                name="show-todays"
-                checked={!isFiltered && showAll}
+                name="show-option"
+                checked={allChecked}
                 onClick={() => {
                   clearFilters();
-                  setShowAll(true);
+                  setShowOption("all");
                 }}
               />
               <label htmlFor="show-todays-all">Show all fonts</label>
+              <input
+                type="radio"
+                id="show-todays-cli"
+                name="show-option"
+                checked={cliChecked}
+                onClick={() => {
+                  clearFilters();
+                  setShowOption("cli");
+                }}
+              />
+              <label htmlFor="show-todays-cli">Show CLI only</label>
             </fieldset>
           </div>
           <div className="filter-block filter-tags">

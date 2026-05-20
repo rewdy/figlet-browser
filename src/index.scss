@@ -52,3 +52,9 @@ button,
 button.borderless {
   border-color: transparent;
 }
+
+button.reset {
+  all: unset;
+  cursor: pointer;
+  margin: 0 0.25rem;
+}
