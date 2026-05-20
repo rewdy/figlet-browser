@@ -1,4 +1,4 @@
-import figlet, { type Fonts } from "figlet";
+import figlet, { type FontName } from "figlet";
 import { useEffect, useState } from "react";
 
 const RENDER_CACHE: Record<string, string> = {};
@@ -13,7 +13,7 @@ const RENDER_CACHE: Record<string, string> = {};
  */
 export const useFigletDisplay = (
   text: string,
-  font: Fonts,
+  font: FontName,
   shouldRender = false,
 ) => {
   const [rendered, setRendered] = useState<string>("");

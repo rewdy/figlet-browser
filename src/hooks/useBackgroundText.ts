@@ -1,9 +1,9 @@
-import type { Fonts } from "figlet";
+import type { FontName } from "figlet";
 import useSessionStorageState from "use-session-storage-state";
 import { HEADER_BG_FONT_STORAGE_KEY, SITE_HEADER_BG_TEXT } from "../constants";
 import { useFigletDisplay } from "./useFigletText";
 
-const FONT_OPTIONS: Fonts[] = [
+const FONT_OPTIONS: FontName[] = [
   "Fraktur",
   "Broadway",
   "Crazy",

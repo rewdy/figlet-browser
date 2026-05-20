@@ -1,4 +1,4 @@
-import type { Fonts } from "figlet";
+import type { FontName } from "figlet";
 import { useMemo } from "react";
 import useSessionStorageState from "use-session-storage-state";
 import { FILTERS_STORAGE_KEY } from "../constants";
@@ -10,7 +10,7 @@ import masterFontList from "./fontList.json";
  * Single figlet font info object
  */
 export type FontInfo = {
-  name: Fonts;
+  name: FontName;
   height: number;
   tags: string[];
 };
